@@ -2,12 +2,7 @@ language: rust
 
 rust:
   - stable
-  - nightly
   - beta
-    
-matrix:
-  allow_failures:
-    - rust: nightly
   
 jobs:
   fast_finish: true
