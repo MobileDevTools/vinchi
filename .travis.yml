@@ -33,7 +33,7 @@ addons:
 before_cache:
     cargo install cargo-tarpaulin
       
-after_success: - |
+after_success:
         taskset -c 0 cargo tarpaulin --out Xml --all --all-features
         bash <(curl -s https://codecov.io/bash)
         echo "Uploaded code coverage"
