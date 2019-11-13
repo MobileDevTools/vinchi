@@ -4,3 +4,7 @@ rust:
 jobs:
   fast_finish: true
 cache: cargo
+after_success:
+        taskset -c 0 cargo tarpaulin --out Xml --all --all-features
+        bash <(curl -s https://codecov.io/bash)
+        echo "Uploaded code coverage"
