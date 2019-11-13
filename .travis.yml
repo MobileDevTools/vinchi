@@ -30,7 +30,7 @@ addons:
       - binutils-dev
       - libiberty-dev
       
-before_cache: - |
+before_cache:
     cargo install cargo-tarpaulin
       
 after_success: - |
