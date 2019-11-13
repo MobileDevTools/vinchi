@@ -12,9 +12,9 @@ matrix:
 jobs:
   fast_finish: true
   
-cache: 
-  cargo: true
-    apt: true
+cache: cargo
+
+apt: true
 
 before_install:
   - sudo apt-get update
