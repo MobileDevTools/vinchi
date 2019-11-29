@@ -5,5 +5,9 @@ members = [
     "vinci_vcs",
     "vinci_assembly",
     "vinci_android",
-    "vinci_ios"
+    "vinci_ios",
+    "vinci_cli",
+    "vinci_java",
+    "vinci_swift",
+    "vinci_kotlin",
 ]
