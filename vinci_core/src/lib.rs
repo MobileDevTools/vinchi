@@ -1,5 +1,6 @@
 mod errors;
 
 pub use {
-    errors::{ CompileError }
+    errors::{ CompileError },
+    futures::*
 };

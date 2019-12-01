@@ -1,12 +1,34 @@
 use vinci_core::CompileError;
 use std::process::{Command, Stdio};
 use std::io::{Read, Stdout, Write};
+use std::borrow::{Cow, Borrow};
+use std::ffi::OsStr;
+
+// GLOBAL TODO make in with trait and in diff mods, and all same things should be in the CORE!!!!
+
+const JAVA_PACKAGES: [&'static str; 7] = [
+    "/usr/bin/javac",
+    "/usr/bin/jar",
+    "/usr/bin/java",
+    "/usr/bin/jarsigner",
+    "/usr/bin/javadoc",
+    "/usr/bin/javah",
+    /*not so important (exists since jdk 1.6) */"/usr/bin/javapackager"]
+;
 
 async fn compile() -> Result<usize, CompileError> {
     // find java first action
     let is_installed = is_java_installed().await;
 
+    if is_installed.is_err() {
+        return Err(CompileError::new(
+            "java".into(),
+            "yours files".into(),
+            "Java missing, want to install it? [Y/n]".into()));
+    }
     // check packages
+
+    let all_packages_exists = is_all_java_packages_exists();
 
     Ok(0)
 }
@@ -53,15 +75,33 @@ fn check_and_return_out(out: &mut Command) -> Result<String, ()> {
         )
 }
 
+async fn is_all_java_packages_exists() -> bool {
+    let files = JAVA_PACKAGES.iter()
+        .map(|file| {
+            async_std::path::Path::new(file).exists()
+        })
+        .collect::<Vec<_>>();
+    vinci_core::future::join_all(files).await.iter().all(|is| *is)
+}
+
 #[cfg(test)]
 mod test {
-    use crate::{compile, is_java_installed};
+    use crate::{compile, is_java_installed, is_all_java_packages_exists};
 
     #[test]
     fn should_check_java_installed() {
         //haven ideas how write tests // todo about it
         async_std::task::block_on(async {
             let result = is_java_installed().await;
+            println!("{:?}", result);
+        });
+    }
+
+    #[test]
+    fn should_check_all_java_packages_is_installed() {
+        //haven ideas how write tests // todo about it
+        async_std::task::block_on(async {
+            let result = is_all_java_packages_exists().await;
             println!("{:?}", result);
         });
     }
