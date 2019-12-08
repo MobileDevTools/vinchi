@@ -11,4 +11,3 @@ name = "vinci_java"
 
 [dependencies]
 vinci_core = { path = "../vinci_core" }
-async-std = "1.2.0"
