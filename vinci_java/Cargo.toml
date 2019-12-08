@@ -8,3 +8,6 @@ edition = "2018"
 
 [lib]
 name = "vinci_java"
+
+[dependencies]
+vinci_core = { path = "../vinci_core" }
