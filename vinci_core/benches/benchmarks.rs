@@ -5,7 +5,7 @@ use vinci_core::async_walk_and_find_all_files;
 
 fn bench() {
     async_std::task::block_on(async {
-        let result = async_walk_and_find_all_files("/Users/vadik/buck/buck2").await;
+        let result = async_walk_and_find_all_files("/").await;
      println!("{:?}", result);
       //  assert_eq!("", result.unwrap().first().unwrap())
     });
